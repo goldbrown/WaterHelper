@@ -73,18 +73,17 @@ $(function(){
           chrome.storage.sync.set({ 'goal' :goal, 'message':message, 'sound': sound}, function(){
             var opt = {
                 type: "basic",
-                title: "Changes Saved Successfully.",
+                title: "设置保存成功",
                 message : "",
-                iconUrl:"icon.png",
-                requireInteraction: true
+                iconUrl:"icon.png"
             }
             chrome.notifications.create('saveChanges', opt, function(){});
-              close();
+            close();
           });
       }
 
       else{
-        alert("Goal Not Set");
+        alert("未设置目标喝水杯数");
       }
        localStorage.isSoundActivated = $('#soundCheck').is(":checked");
   });
@@ -93,12 +92,11 @@ $(function(){
       chrome.storage.sync.set({ 'total' : 0},function(){
           var opt = {
               type: "basic",
-              title: "Total Reset",
-              message : "Total Number of Glasses Consumed Today has been reset to zero.",
-              iconUrl:"icon.png",
-              requireInteraction: true
+              title: "重置已喝水杯数",
+              message : "今日已喝水杯数已重置为0",
+              iconUrl:"icon.png"
           }
-          chrome.notifications.create('reset', opt, function(){});
+          chrome.notifications.create(opt);
       });
   });
 

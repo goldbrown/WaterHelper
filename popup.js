@@ -1,3 +1,29 @@
+// 增加喝水次数的逻辑
+function incrCountForPopup() {
+    chrome.storage.sync.get(['total','goal'], function (items){
+        var newTotal = 0;
+        if(items.total){
+            newTotal += parseInt(items.total);
+        }
+        newTotal+= 1;
+  
+        chrome.storage.sync.set({'total': newTotal});
+  
+        if(newTotal >= items.goal){
+            
+            var opt = {
+                type: "basic",
+                title: "真棒，今日目标已完成!",
+                message : "今天已经喝水" + items.goal + " 杯!",
+                iconUrl:"icon.png"
+            }
+            chrome.notifications.create(opt);
+        }
+        close();
+    });
+  };
+
+
 $(function(){
 
     chrome.storage.sync.get(['total','goal'], function(items){
@@ -43,41 +69,5 @@ $(function(){
     
     });
 
-
-
-    $('#addAmount').click(function(){
-       
-
-        chrome.storage.sync.get(['total','goal'], function (items){
-            var newTotal = 0;
-            if(items.total){
-                newTotal += parseInt(items.total);
-            }
-
-            var amount = $('#amount').val();
-
-            if(amount) {
-                newTotal+= parseInt(amount);
-            }
-
-            chrome.storage.sync.set({'total': newTotal});
-            $('#total').text(newTotal);
-            $('#amount').val('');
-
-            if(newTotal >= items.goal){
-                
-                var opt = {
-                    type: "basic",
-                    title: "真棒，今日目标已完成!",
-                    message : "今天已经喝水" + items.goal + " 杯!",
-                    iconUrl:"icon.png"
-                }
-
-                chrome.notifications.create('goalReached', opt, function(){});
-            }
-            close();
-
-        })
-
-    });
+    $('#addAmount').click(incrCountForPopup);
 });
