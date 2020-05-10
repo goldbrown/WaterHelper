@@ -1,0 +1,33 @@
+{
+
+  "manifest_version": 2,
+  "name": "喝水助手",
+  "version": "2.0",
+  "author": "Chris",
+  "description":
+    "一个可以提醒你喝水的chrome扩展，支持记录每天的喝水次数，支持延迟通知。",
+  "icons": { "48": "icon.png"},
+
+
+  "permissions": [
+    "storage",
+    "notifications",
+    "contextMenus"
+  ],
+
+  "browser_action" :{
+    "default_icon":"icon.png",
+    "default_popup":"popup.html"
+ },
+
+
+  "options_page": "notification_options.html",
+  "background": { 
+    "scripts": ["notification_background.js", "eventPage.js"],
+    "persistent":false
+   },
+
+  "web_accessible_resources": [
+    "icon.png"
+  ]
+}
